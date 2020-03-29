@@ -69,13 +69,19 @@
                         <li class="menu__innerlist1"><a class="menu__innerlink" href="">Exchange</a></li>
                     </ul>
                 </li>
-                <li class="menu__innerlist"><a class="menu__link" href="">Contact</a></li>
+                <li class="menu__innerlist"><a class="menu__link" href="/test">Contact</a></li>
             </ul>
         </li>
         <li class="menu__outerlist1">
             <ul class="menu__outerlist">
+                <% if(showLogin) { %>
+                <li class="menu__innerlist" onclick="openLogin()"><a class="menu__login" href="#">Inloggen</a></li>
+                 <% }else{ %>
                 <li class="menu__innerlist" onclick=""><a class="menu__acount" href="#">Account</a></li>
-                <li class="menu__innerlist" onclick="openLogin()"><a class="menu__login" href="#">Login</a></li>
+                <form action="/logout" method="get">
+                     <button type="submit">Uitloggen</button>
+                </form>
+                <% } %>
             </ul>
         </li>
     </ul>

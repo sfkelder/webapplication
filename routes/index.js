@@ -2,44 +2,52 @@ var express = require('express');
 var router = express.Router();
 
 var fs = require("fs");
-var file = __dirname + "/../database/test.db";
+var file = __dirname + "/../database/main.db";
 var exists = fs.existsSync(file);
+
+/*Seeting up database*/
+if(!exists) {
+  fs.openSync(file, "w");
+
+   var sqlite3 = require("sqlite3").verbose();
+   var db = new sqlite3.Database(file);
+
+    db.serialize(function() {
+        db.run("CREATE TABLE Students (student_number INT, first_Name TEXT, middle_Name TEXT, last_Name TEXT, student_Mail TEXT, program TEXT, password TEXT)");
+ });
+    db.close();
+}
+
 
 /* Routes */
 router.get('/', function(req, res, next) {
 
-    if(!req.session.username){
-        req.session.username = 'Niet ingelogd';
-    }
+     if(!req.session.username){
+       req.session.username = 'Niet ingelogd';
+       req.session.showLogin = true;
+   }
 
-    res.render('index', {username: req.session.username});
+    res.render('index', {username: req.session.username,
+                         showLogin: req.session.showLogin});
 });
 
-//------------------
+//---------------
 
-/*creates db file*/
+router.get('/test', function(req, res, next){
+    var array = [];
 
+    var sqlite3 = require("sqlite3").verbose();
+    let db = new sqlite3.Database(file);
 
-router.post('/login', function(req, res, next){
-   /* var sqlite3 = require("sqlite3").verbose();
-
-    let db = new sqlite3.Database(file, (err) => {
-        if (err) {
-            return console.error(err.message);
+    db.all('SELECT * FROM Students', (err, rows) => {
+    if (err) {
+    throw err;
     }
+    rows.forEach((row) => {
+    array.push(row);
     });
-
-    var createlogin ={
-        username: req.body.username
-    };
-
-    var stmt = db.prepare("INSERT INTO Stuff VALUES (?)");
-    stmt.run("Thing #" + createlogin.username);
-    stmt.finalize();
-
-    db.serialize(function() {
-   db.each("SELECT rowid AS id, thing FROM Stuff", function(err, row) {
-       console.log(row.id + ": " + row.thing); });
+        console.log(array);
+        res.render('test', {array});
 });
 
   db.close((err) => {
@@ -47,21 +55,52 @@ router.post('/login', function(req, res, next){
     return console.error(err.message);
   }
 });
-  */  res.render('index', {username: req.session.username});
+
 });
 
+//------------------
 
+router.post('/login', function(req, res, next){
 
-//-----------------
+    var sqlite3 = require("sqlite3").verbose();
+    let db = new sqlite3.Database(file);
 
+    db.serialize(function() {
+        db.all("SELECT * FROM Students WHERE student_Mail = (?) OR student_Number = (?)", [req.body.username, req.body.username], (err, rows) => {
+        if (err) {
+            throw err;
 
+        }
+            rows.forEach((row) => {
+                if(row.password === req.body.password){
+                    console.log('suc6');
+                    req.session.username = row.first_Name + " " + row.last_Name;
+                    req.session.first_Name = row.first_Name;
+                    req.session.middle_Name = row.middle_Name;
+                    req.session.last_Name = row.last_Name;
+                    req.session.student_Number = row.student_Number;
+                    req.session.student_Mail = row.student_Mail;
+                    req.session.program = row.program;
+                    req.session.login = 'Log out';
+                    req.session.showLogin = false;
+                }
+            });
 
+             res.render('index', {username: req.session.username,
+                                   showLogin: req.session.showLogin});
+
+        });
+        db.close();
+    });
+});
+
+router.get('/logout', function(req, res, next) {
+
+       req.session.username = 'Niet ingelogd';
+       req.session.showLogin = true;
+
+    res.render('index', {username: req.session.username,
+                         showLogin: req.session.showLogin});
+});
 
 module.exports = router;
-
-
-
-
-
-
-
