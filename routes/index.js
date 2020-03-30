@@ -13,7 +13,7 @@ if(!exists) {
    var db = new sqlite3.Database(file);
 
     db.serialize(function() {
-        db.run("CREATE TABLE Students (student_number INT, first_Name TEXT, middle_Name TEXT, last_Name TEXT, student_Mail TEXT, program TEXT, password TEXT)");
+        db.run("CREATE TABLE Students (student_Number INTEGER PRIMARY KEY AUTOINCREMENT, first_Name TEXT, middle_Name TEXT, last_Name TEXT, student_Mail TEXT UNIQUE, program TEXT, academic_Level INT, password TEXT)"); console.log('created');
  });
     db.close();
 }
@@ -34,6 +34,8 @@ router.get('/', function(req, res, next) {
 
 router.post('/login', function(req, res, next){
 
+    res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+
     var sqlite3 = require("sqlite3").verbose();
     let db = new sqlite3.Database(file);
 
@@ -44,13 +46,14 @@ router.post('/login', function(req, res, next){
         }
             rows.forEach((row) => {
                 if(row.password === req.body.password){
-                    req.session.username = row.first_Name + " " + row.last_Name;
+                    req.session.username = row.first_Name + " " + row.middle_Name + " " + row.last_Name;
                     req.session.first_Name = row.first_Name;
                     req.session.middle_Name = row.middle_Name;
                     req.session.last_Name = row.last_Name;
                     req.session.student_Number = row.student_Number;
                     req.session.student_Mail = row.student_Mail;
                     req.session.program = row.program;
+                    req.session.academic_Level = row.academic_Level;
                     req.session.showLogin = false;
                 }
             });
@@ -61,8 +64,6 @@ router.post('/login', function(req, res, next){
         });
         db.close();
     });
-
-    console.log('qwertyuioplkjhgfdsa`zxcvbnm,.nbvcxsdfghjiuytre');
 });
 
 router.get('/logout', function(req, res, next) {
@@ -70,6 +71,35 @@ router.get('/logout', function(req, res, next) {
         res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
         res.redirect('/');
     });
+});
+
+router.get('/register', function(req, res, next){
+    res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+
+    if(!req.session.showLogin){
+        res.redirect('/');
+    }
+
+     res.render('register', {username: req.session.username,
+                             showLogin: req.session.showLogin});
+});
+
+router.post('/register', function(req, res, next){
+
+    var sqlite3 = require("sqlite3").verbose();
+    var db = new sqlite3.Database(file);
+
+    if(req.body.password === req.body.passwordCheck){
+        db.serialize(function() {
+        var stmt = db.prepare("INSERT INTO Students VALUES (NULL, ?, ?, ?, ?, ? ,? ,?)");
+        stmt.run(req.body.first_Name, req.body.middle_Name, req.body.last_Name, req.body.email, req.body.program, req.body.academic_level, req.body.password);
+        stmt.finalize();
+        });
+        db.close();
+       }
+
+   res.render('index', {username: req.session.username,
+                             showLogin: req.session.showLogin});
 });
 
 //---------------

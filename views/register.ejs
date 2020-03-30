@@ -6,6 +6,8 @@
     <meta name="description" content="Website for the course Imperative programming">
     <title>Universiteit Utrecht</title>
     <link rel="stylesheet" type="text/css" href="../public/stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/register.css">
+      <link rel="stylesheet" type="text/css" href="../public/stylesheets/registerAnimation.css">
     <link rel="icon" type="image/png" sizes="16x16" href="../public/images/favicon-16x16.png">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -85,7 +87,7 @@
         </li>
     </ul>
     </nav>
-      <section class="login" id="login">
+       <section class="login" id="login">
 	       <div class="login__text">Student Login</div>
 	       <form action="/login" method="post">
     	       <input type="text" name="username" placeholder="Username" data-icon="U">
@@ -97,63 +99,56 @@
             <button class="login__button" type="submit">Submit</button>
             </form>
       </section>
-      <section class="main home">
-          <iframe class="introductionVideo" src="https://www.youtube.com/embed/W7FqJ9mnktA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen preload="auto"></iframe>
-      <article class="main__introduction">
-        <h2 class="main__header" class="main__introductiontext">
-            Introductie  Universiteit Utrecht
-        </h2>
-        <p class="main__introductiontext">
-            De Universiteit Utrecht staat voor breed en interdisciplinair onderwijs. In Utrecht kijken studenten over de grenzen van hun vakgebied heen en voeren zij vanuit verschillende disciplines projecten uit.
-        </p>
-        <p class="main__introductiontext">
-            Het onderwijs is modern, persoonlijk, van hoge kwaliteit en continu in ontwikkeling. Studenten en toponderzoekers werken samen aan een betere toekomst.
-        </p>
-      </article>
-       <article class="main__information">
-      <h3 class="main__header">
-        Inovatief leren
-      </h3>
-      <p>
-        Innovatief, van hoge kwaliteit en toekomstbestendig. Deze eigenschappen zijn kenmerkend voor het Utrechtse onderwijs. De Universiteit Utrecht loopt al jaren voorop in onderwijsvernieuwing en ontwikkelt uitdagende programma’s voor groepen extra getalenteerde en gemotiveerde studenten, om aan de internationale roep om kwaliteit en talent tegemoet te komen. Illustratief zijn Utrechtse onderwijsinitiatieven als het University College Utrecht en het Utrecht Law College. Constant werken aan beter onderwijs, met bevlogen docenten en ambitieuze studenten.
-      </p>
-      <h3 class="main__header">
-        Onderwijsvernieuwing
-      </h3>
-      <p>
-        Studenten volgen overal aan de Universiteit Utrecht interactief, kleinschalig onderwijs, gegeven door gedreven docenten die er actief aan bijdragen om programma’s waar nodig te verbeteren.
-        De Universiteit Utrecht realiseert programma’s die aansluiten op de vraag van studenten en de maatschappij.
-      </p>
-      <p>
-        Voorbeelden zijn de Selective Utrecht Medical Master (SUMMA), het honoursonderwijs, de Academische lerarenopleiding primair onderwijs (ALPO) en de educatieve minor. De Universiteit Utrecht investeert doorlopend in de innovatie van onderwijs via het Utrechts Stimuleringsfonds Onderwijs.
-      </p>
-      <p>
-        Verder ondersteunt Educate-it docenten om hun onderwijs te versterken en aan te passen aan het onderwijs van de toekomst. Educate-it ondersteunt docenten zowel in het praktische gebruik van IT-tools, waarvan de meerwaarde voor het onderwijs al is vastgesteld door andere docenten van de universiteit, als bij het (her)ontwerpen van hun onderwijs naar een blended learningvorm.
-      </p>
-           <img class="main__imageOnderwijs" src="../public/images/onderwijser.jpg" alt="Teacher teaching"/>
-           <img class="main__imageOnderwijs" src="../public/images/practicum.jpg" alt="Students working on lab"/>
-           <img class="main__imageOnderwijs" src="../public/images/collegezaal.jpeg" alt="Students in lecture"/>
-       <h3 class="main__header">
-           Hoogste studiesucces
-       </h3>
-        <p>
-            De Universiteit Utrecht heeft van alle Nederlandse universiteiten het hoogste studiesucces onder vwo-instromers. Dit succes is gebaseerd op het unieke Utrechts onderwijsmodel gericht op differentiatie, commitment en de juiste student op de juiste plek.
-       </p>
-        <h3 class="main__header">
-           Profesionalisering van docenten
-       </h3>
-        <p>
-            Goed onderwijs wordt gegeven door excellente docenten, die in staat worden gesteld hun onderwijs te verbeteren en innoveren. Sinds de jaren negentig van de vorige eeuw wordt in Utrecht extra aandacht besteed aan de professionalisering van docenten. Als eerste universiteit in Nederland voerde de Universiteit Utrecht onder meer zowel de basis als de senior kwalificaties onderwijs in, is de onderwijsloopbaan doorgetrokken naar het hoogleraarschap. De universitaire docentenprijzen illustreren dat docententalent in Utrecht hoog wordt gewaardeerd.
-            Ook zijn de Leergang onderwijskundig leiderschap en het Senior Fellow programma in het leven geroepen en in digitaliseringsprojecten is continu aandacht voor optimale begeleiding, om de professionalisering van de docent te ondersteunen. Via de Teaching Academy Utrecht University delen docenten best practices met elkaar.
-        </p>
-        <h3 class="main__header">
-            Internationaal
-        </h3>
-        <p>
-            De Universiteit Utrecht heeft een omvangrijk Engelstalig onderwijsaanbod, met vier Engelstalige bacheloropleidingen, 81 Engelstalige masterprogramma's en de grootste Summer School van Europa.
-       </p>
-      </article>
-    </section>
+     <section class="mainSection">
+		<div class="top">
+			<h1 class="mainSection__title"><span class="logo">Register or Reset password</span></h1>
+		</div>
+		<form action="/register" method="post" class="login-box animated fadeInUp">
+            <div class="box-header">
+				<h2>Register</h2>
+			</div>
+			<div class="mainSection__div">
+                <h4>Voornaam</h4>
+                <input type="text" id="username" name="first_Name" placeholder="Gijs" required>
+            </div>
+            <div class="mainSection__div">
+                <h4>Midden-naam</h4>
+                <input type="text" id="username" name="middle_Name" placeholder="van Der">
+            </div>
+            <div class="mainSection__div">
+                <h4>Achternaam</h4>
+                <input type="text" id="username" name="last_Name" placeholder="Wall" required>
+            </div>
+            <div class="mainSection__div">
+                <h4>E-mail</h4>
+                <input type="email" id="username" name="email" placeholder="g.baker@students.uu.nl" required>
+            </div>
+			<div class="mainSection__div">
+                <h4>Wachtwoord</h4>
+                <input title="Password must contain at least 6 characters, including UPPER/lowercase and numbers" type="password" id="password" name="password" placeholder="Wachtwoord" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : ''); if(this.checkValidity()) form.pwd2.pattern = RegExp.escape(this.value);">
+            </div>
+            <div class="mainSection__div">
+                <h4>Wachtwoord</h4>
+                <input title="Please enter the same Password as above" type="password" id="username" name="passwordCheck" placeholder="Bevestig wachtwoord" required required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');">
+            </div>
+                <div class="mainSection__div">
+                <h4>Niveau</h4>
+                <div class="login-box__selsction" id="login-box__selsction">
+                <div class="select__arrow"></div>
+                </div>
+                </div>
+                <div class="mainSection__div">
+                <h4>Studie programma</h4>
+                <div class="login-box__selsction" id="login-box__selsction1">
+                <div class="select__arrow"></div>
+                </div>
+		        </div>
+                <div>
+                    <button type="submit">Register</button>
+                </div>
+                    <a href="#"><p class="small">Forgot your password?</p></a>
+        </form>
+      </section>
     <footer class="footer">
       Webtech Assigment 3
       <p>
@@ -162,4 +157,3 @@
     </footer>
   </body>
 </html>
-

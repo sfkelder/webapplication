@@ -1,9 +1,48 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="../public/stylesheets/test.css">
+</head>
 <body>
  <% for(var person of array) { %>
-    <p>Name: <%= person.first_Name %><%= person.middle_Name %><%= person.last_Name %></p>
-    <p>Student number: <%= person.studentnumber %></p>
+    <p>Name: <%= person.first_Name %> <%= person.middle_Name %> <%= person.last_Name %></p>
+    <p>Student number: <%= person.student_Number %></p>
     <p>Student mail: <%= person.student_Mail %></p>
     <p>Program: <%= person.program %></p>
     <p>Password: <%= person.password %></p>
+    <p>Academic level: <%= person.academic_Level%></p>
     <% } %>
+
+    <div class="container">
+
+
+    <h1>Select boxes</h1>
+    <div class="select">
+      <select>
+        <option>First select</option>
+        <option>Option</option>
+        <option>Option</option>
+      </select>
+      <div class="select__arrow"></div>
+    </div>
+    <div class="select">
+      <select>
+        <option>Second select</option>
+        <option>Option</option>
+        <option>Option</option>
+      </select>
+      <div class="select__arrow"></div>
+    </div>
+    <div class="select">
+      <select disabled="disabled">
+        <option>Disabled</option>
+        <option>Option</option>
+        <option>Option</option>
+      </select>
+      <div class="select__arrow"></div>
+    </div>
+
+
+</div>
+
 </body>
+</html>
