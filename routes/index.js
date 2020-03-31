@@ -114,7 +114,8 @@ router.get('/acount', function(req, res, next){
                          firstName: req.session.first_Name,
                         middleName: req.session.middle_Name,
                         lastName: req.session.last_Name,
-                        email: req.session.student_Mail});
+                        email: req.session.student_Mail,
+                        academic: req.session.academic_Level});
 });
 
 router.post('/change', function(req, res, next){
@@ -178,7 +179,20 @@ router.post('/change', function(req, res, next){
 router.get('/delete', function(req, res, next){
      res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
-     res.redirect('/');
+     var sqlite3 = require("sqlite3").verbose();
+     var db = new sqlite3.Database(file);
+
+    db.serialize(function(){
+        db.run("DELETE FROM Students WHERE student_Number = ?", [req.session.student_Number], function(err) {
+        if (err) {
+        throw err;
+    }
+        console.log(`Row(s) deleted ${this.changes}`);
+        });
+    });
+    db.close();
+
+     res.redirect('/logout');
 });
 
 //---------------
