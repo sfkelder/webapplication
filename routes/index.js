@@ -13,7 +13,7 @@ if(!exists) {
    var db = new sqlite3.Database(file);
 
     db.serialize(function() {
-        db.run("CREATE TABLE Students (student_Number INTEGER PRIMARY KEY AUTOINCREMENT, first_Name TEXT, middle_Name TEXT, last_Name TEXT, student_Mail TEXT UNIQUE, program TEXT, academic_Level INT, password TEXT)"); console.log('created');
+        db.run("CREATE TABLE Students (student_Number INTEGER PRIMARY KEY AUTOINCREMENT, first_Name TEXT, middle_Name TEXT, last_Name TEXT, student_Mail TEXT UNIQUE, program TEXT, academic_Level TEXT, password TEXT)"); console.log('created');
  });
     db.close();
 }
@@ -100,6 +100,85 @@ router.post('/register', function(req, res, next){
 
    res.render('index', {username: req.session.username,
                              showLogin: req.session.showLogin});
+});
+
+router.get('/acount', function(req, res, next){
+   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+
+    if(req.session.showLogin){
+        res.redirect('/');
+    }
+
+   res.render('acount', {username: req.session.username,
+                         showLogin: req.session.showLogin,
+                         firstName: req.session.first_Name,
+                        middleName: req.session.middle_Name,
+                        lastName: req.session.last_Name,
+                        email: req.session.student_Mail});
+});
+
+router.post('/change', function(req, res, next){
+    res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+
+     var sqlite3 = require("sqlite3").verbose();
+    let db = new sqlite3.Database(file);
+
+    var pass = '';
+
+        req.session.first_Name = req.body.first_Name;
+        req.session.middle_Name = req.body.middle_Name;
+        req.session.last_Name = req.body.last_Name;
+        req.session.student_Mail = req.body.email;
+
+
+    if(req.body.academic_Level !== req.session.academic_Level){
+        req.session.academic_Level = req.body.academic_level
+    }
+
+    if(req.body.program !== req.session.program){
+        req.session.program = req.body.program
+    }
+
+        db.serialize(function() {
+        db.get("SELECT password FROM Students WHERE student_Number = (?)", [req.session.student_Number], (err, row) => {
+        if (err) {
+            throw err;
+        }   req.session.pass = row.password;
+                if(row.password === req.body.old_pasword && req.body.new_pasword === req.body.paswordCheck){
+                  pass = req.body.new_pasword;
+                }else{
+                  pass = row.password;
+                }
+
+            let db1 = new sqlite3.Database(file);
+           db1.serialize(function(){
+                db1.run("UPDATE Students SET first_Name = ?, middle_Name = ? , last_Name = ? , student_Mail = ?, program = ?, academic_Level = ?, password = ? WHERE student_Number = ?", [req.session.first_Name, req.session.middle_Name, req.session.last_Name, req.session.student_Mail, req.session.program, req.session.academic_Level, pass, req.session.student_Number], function(err) {
+
+                if(err){
+                    throw err;
+                }
+                // console.log(`Row(s) updated: ${this.changes}`);
+            });
+           });
+            db1.close();
+
+        });
+
+        db.close();
+    });
+
+   req.session.username = req.session.first_Name + " " + req.session.middle_Name + " " + req.session.last_Name;
+
+    res.render('index', {username: req.session.username,
+                         showLogin: req.session.showLogin});
+
+});
+
+
+router.get('/delete', function(req, res, next){
+     res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+
+     res.redirect('/');
 });
 
 //---------------

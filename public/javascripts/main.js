@@ -11,14 +11,12 @@ function openLogin(){
 
 }
 
-//
+
 var niveaus = ['Bachelor 1','Bachelor 2','Bachelor 3','Master 1','Master 2'];
 var programs = ['Informatica','Game technologie','bestuur en organisatiewetenschappen','Rechten','Wiskunde'];
 
-function setUpPage(){
-    loginBox();
-}
 
+//creates the inputboxes with values for the register page
 function loginBox() {
   var x = document.createElement("SELECT");
   var y = document.createElement("SELECT");
@@ -48,5 +46,16 @@ function loginBox() {
     }
 }
 
+function deleteFunction(){
+    document.getElementById('deleteButton').style.display="none";
+    document.getElementById('deleteButton1').style.display="inline-block";
+}
 
-window.addEventListener("load", setUpPage, true);
+
+//sets up the acount page
+function acountPage(){
+
+}
+
+//alerts for when a page is requested by user
+window.addEventListener("load", loginBox, true);
