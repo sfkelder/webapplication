@@ -13,7 +13,12 @@ if(!exists) {
    var db = new sqlite3.Database(file);
 
     db.serialize(function() {
-        db.run("CREATE TABLE Students (student_Number INTEGER PRIMARY KEY AUTOINCREMENT, first_Name TEXT, middle_Name TEXT, last_Name TEXT, student_Mail TEXT UNIQUE, program TEXT, academic_Level TEXT, password TEXT)"); console.log('created');
+        db.run("CREATE TABLE Students (student_Number INTEGER PRIMARY KEY AUTOINCREMENT, first_Name TEXT, middle_Name TEXT, last_Name TEXT, student_Mail TEXT UNIQUE, program TEXT, academic_Level TEXT, password TEXT, link_Picture_Student TEXT)");
+
+        db.run("CREATE TABLE Courses (course_Number INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, faculty TEXT, program TEXT, academic_Level TEXT, semester TEXT, description TEXT, teacher TEXT, link_Picture_Teacher TEXT)");
+
+        db.run("CREATE TABLE Registered (student_Number INTEGER, course_Number INTEGER)");
+        console.log('created');
  });
     db.close();
 }
@@ -91,7 +96,7 @@ router.post('/register', function(req, res, next){
 
     if(req.body.password === req.body.passwordCheck){
         db.serialize(function() {
-        var stmt = db.prepare("INSERT INTO Students VALUES (NULL, ?, ?, ?, ?, ? ,? ,?)");
+        var stmt = db.prepare("INSERT INTO Students VALUES (NULL, ?, ?, ?, ?, ? ,? ,?, NULL)");
         stmt.run(req.body.first_Name, req.body.middle_Name, req.body.last_Name, req.body.email, req.body.program, req.body.academic_level, req.body.password);
         stmt.finalize();
         });
@@ -195,6 +200,103 @@ router.get('/delete', function(req, res, next){
      res.redirect('/logout');
 });
 
+
+router.post('/zoeken', function(req, res, next){
+    res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+
+    var array = [];
+    var defaultValue;
+    var sqlite3 = require("sqlite3").verbose();
+     var db = new sqlite3.Database(file);
+
+    db.serialize(function(){
+        if(!req.body.search && !req.body.semester && !req.body.academic_level && !req.body.program){
+            db.all("SELECT * FROM Courses ORDER BY program ASC, academic_Level, semester, title ASC",(err, rows) => {
+        if (err) {
+            throw err;
+        }
+            rows.forEach((row) => {
+                array.push(row);
+            });
+
+                res.render('zoekpagina', {username: req.session.username,
+                             showLogin: req.session.showLogin,
+                             searchValue: req.body.search,
+                              defaultValue: defaultValue,
+                                array});
+               //  console.log(array);
+               // console.log(req.body.search + '1');
+        });
+
+              if(!req.body.search){
+        defaultValue = "zoeken..";
+        }
+
+        }else if(req.body.search && !req.body.semester && !req.body.academic_level && !req.body.program){
+            db.all("SELECT * FROM Courses WHERE title LIKE ? ORDER BY program ASC, academic_Level, semester, title ASC", ['%' + req.body.search + '%'] ,(err, rows) => {
+        if (err) {
+            throw err;
+        }
+            rows.forEach((row) => {
+                array.push(row);
+            });
+                res.render('zoekpagina', {username: req.session.username,
+                             showLogin: req.session.showLogin,
+                             searchValue: req.body.search,
+                              defaultValue: defaultValue,
+                                array});
+               //  console.log(array);
+                 //console.log(req.body.search + '2');
+        });
+        }else if(!req.body.search && req.body.semester && req.body.academic_level && req.body.program){
+                 db.all("SELECT * FROM Courses WHERE semester = ? AND academic_Level = ? AND program = ? ORDER BY program ASC, academic_Level, semester, title ASC", [req.body.semester, req.body.academic_level, req.body.program] , (err, rows) => {
+        if (err) {
+            throw err;
+        }
+            rows.forEach((row) => {
+                array.push(row);
+            });
+
+                     res.render('zoekpagina', {username: req.session.username,
+                             showLogin: req.session.showLogin,
+                             searchValue: req.body.search,
+                              defaultValue: defaultValue,
+                                array});
+                // console.log(array);
+                 //console.log(req.body.search + '3');
+        });
+        }else if(req.body.search && req.body.semester && req.body.academic_level && req.body.program){
+            db.all("SELECT * FROM Courses WHERE title LIKE ? AND semester = ? AND academic_Level = ? AND program = ? ORDER BY program ASC, academic_Level, semester, title ASC", ['%' + req.body.search + '%', req.body.semester, req.body.academic_level, req.body.program] , (err, rows) => {
+        if (err) {
+            throw err;
+        }
+            rows.forEach((row) => {
+                array.push(row);
+            });
+
+                res.render('zoekpagina', {username: req.session.username,
+                             showLogin: req.session.showLogin,
+                             searchValue: req.body.search,
+                              defaultValue: defaultValue,
+                                array});
+
+              //   console.log(array);
+                // console.log(req.body.search + '4');
+        });
+        }
+    });
+    db.close();
+});
+
+
+router.post('/goToCourse', function(req, res, next){
+
+    console.log(req.body.courseButton);
+
+    res.render('index',  {username: req.session.username,
+                         showLogin: req.session.showLogin});
+});
+
 //---------------
 
 router.get('/test', function(req, res, next){
@@ -222,6 +324,34 @@ router.get('/test', function(req, res, next){
 
 });
 
+
+
+
+router.post('/voegtoe', function(req, res, next){
+    var sqlite3 = require("sqlite3").verbose();
+    let db = new sqlite3.Database(file);
+
+    db.serialize(function(){
+
+        var stmt = db.prepare("INSERT INTO Courses VALUES (NULL, ?, ?, ?, ?, ? ,? ,?, ?)");
+        stmt.run(req.body.titel, req.body.faculteit, req.body.program, req.body.academic_level, req.body.semester, req.body.beschrijving, req.body.naamDocent, req.body.link);
+        stmt.finalize();
+
+        db.all('SELECT * FROM Courses', (err, rows) => {
+    if (err) {
+    throw err;
+    }
+    rows.forEach((row) => {
+    console.log(row);
+    });
+
+});
+
+    });
+    db.close();
+    var array = [];
+    res.render('test', {array});
+});
 //------------------
 
 module.exports = router;

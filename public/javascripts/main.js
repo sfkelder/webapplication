@@ -14,6 +14,7 @@ function openLogin(){
 
 var niveaus = ['Bachelor 1','Bachelor 2','Bachelor 3','Master 1','Master 2'];
 var programs = ['Informatica','Game technologie','bestuur en organisatiewetenschappen','Rechten','Wiskunde'];
+var semesters = ['Semester 1', 'Semester 2', 'Semester 3','Semester 4',];
 
 
 //creates the inputboxes with values for the register page
@@ -44,7 +45,26 @@ function loginBox() {
         z.appendChild(t);
         document.getElementById("selectionBox1").appendChild(z);
     }
+
 }
+
+function semester(){
+    var a = document.createElement("SELECT");
+
+    a.setAttribute("id", "selectionBox2");
+    a.setAttribute("name", "semester");
+
+    document.getElementById('login-box__selsction2').appendChild(a);
+
+     for(let i =0; i<semesters.length; i++){
+        var z = document.createElement("option");
+        var t = document.createTextNode(semesters[i]);
+
+        z.appendChild(t);
+        document.getElementById("selectionBox2").appendChild(z);
+    }
+}
+
 
 function deleteFunction(){
     document.getElementById('deleteButton').style.display="none";
@@ -59,3 +79,4 @@ function acountPage(){
 
 //alerts for when a page is requested by user
 window.addEventListener("load", loginBox, true);
+window.addEventListener("load", semester, true);

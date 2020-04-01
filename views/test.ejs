@@ -1,6 +1,8 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="../public/stylesheets/test.css">
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+      <script src="../public/javascripts/main.js" defer></script>
 </head>
 <body>
  <% for(var person of array) { %>
@@ -11,5 +13,54 @@
     <p>Password: <%= person.password %></p>
     <p>Academic level: <%= person.academic_Level%></p>
     <% } %>
+
+
+
+<form action="/voegtoe" method="post">
+    <div class="firstDiv">
+                  <h5 class="title">Opleiding</h5>
+                <div class="mainSection__div">
+                <h6 class="naam__text">Niveau</h6>
+                <div class="login-box__selsction" id="login-box__selsction">
+                <div class="select__arrow"></div>
+                </div>
+                </div>
+                <div class="mainSection__div">
+                <h6 class="naam__text">Studie programma</h6>
+                <div class="login-box__selsction" id="login-box__selsction1">
+                <div class="select__arrow"></div>
+                </div>
+		        </div>
+         <div class="mainSection__div">
+                <h6 class="naam__text">Semester</h6>
+                <div class="login-box__selsction" id="login-box__selsction2">
+                <div class="select__arrow"></div>
+                </div>
+		        </div>
+              </div>
+    <div class="mainSection__div">
+                <h4>Titel</h4>
+                <input class="input" type="text" id="username" name="titel" placeholder="Gijs" required>
+            </div>
+    <div class="mainSection__div">
+                <h4>beschrinving</h4>
+                <input class="input" type="text" id="username" name="beschrijving" placeholder="Gijs" required>
+            </div>
+    <div class="mainSection__div">
+                <h4>naam Docent</h4>
+                <input class="input" type="text" id="username" name="naamDocent" placeholder="Gijs" required>
+            </div>
+    <div class="mainSection__div">
+                <h4>link naar foto</h4>
+                <input class="input" type="text" id="username" name="link" placeholder="Gijs" required>
+            </div>
+    <div class="mainSection__div">
+                <h4>faculteit</h4>
+                <input class="input" type="text" id="username" name="faculteit" placeholder="Gijs" required>
+            </div>
+<button type="submit">submit</button>
+    </form>
+
+
 </body>
 </html>

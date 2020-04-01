@@ -1,0 +1,84 @@
+.login-box__selsction{
+    position: relative;
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+
+select{
+    display: inline-block;
+    width: 300px;
+    cursor: pointer;
+    padding: 10px 15px;
+    outline: 0;
+    border: 0;
+    border-radius: 0;
+    background-color: lightgray;
+    color: darkgrey;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+select::-ms-expand{
+    display: none;
+}
+
+
+    select:hover,
+select:focus{
+     color: black;
+      background-color: grey;
+}
+
+
+select:disabled{
+     opacity: 0.5;
+      pointer-events: none;
+}
+
+
+
+.select__arrow{
+    position: absolute;
+  top: 16px;
+  right: 15px;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  border-style: solid;
+  border-width: 8px 5px 0 5px;
+  border-color: darkgray transparent transparent transparent;
+}
+
+
+  .login-box__selsction select:hover,
+.select select:focus {
+     border-top-color: black;
+}
+
+
+.login-box__selsction{
+    border-top-color: gray;
+}
+
+.input {
+	margin-bottom: 20px;
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 2px;
+	font-size: .9em;
+	color: #888;
+}
+
+.input:focus {
+	outline: none;
+	border-color: #665851;
+	transition: 0.5s;
+	color: #665851;
+}
+
+.mainSection__div{
+    display: inline-block;
+    margin: 10px;
+}

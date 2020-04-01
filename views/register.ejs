@@ -18,7 +18,7 @@
     <header class="header">
       <img class="header__image" src="../public/images/logo-nl.svg" alt="Universtity Utrcht logo">
       <img class="header__image--mobile" src="../public/images/logo_compact.png" alt="Universtity Utrcht logo">
-    <form class="searching-tools" action="">
+    <form class="searching-tools" action="/zoeken" method="post">
       <input class="search-container" type="text" placeholder="zoeken.." name="search">
       <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
     </form>
@@ -109,27 +109,27 @@
 			</div>
 			<div class="mainSection__div">
                 <h4>Voornaam</h4>
-                <input type="text" id="username" name="first_Name" placeholder="Gijs" required>
+                <input class="input" type="text" id="username" name="first_Name" placeholder="Gijs" required>
             </div>
             <div class="mainSection__div">
                 <h4>Midden-naam</h4>
-                <input type="text" id="username" name="middle_Name" placeholder="van Der">
+                <input class="input" type="text" id="username" name="middle_Name" placeholder="van Der">
             </div>
             <div class="mainSection__div">
                 <h4>Achternaam</h4>
-                <input type="text" id="username" name="last_Name" placeholder="Wall" required>
+                <input class="input" type="text" id="username" name="last_Name" placeholder="Wall" required>
             </div>
             <div class="mainSection__div">
                 <h4>E-mail</h4>
-                <input type="email" id="username" name="email" placeholder="g.baker@students.uu.nl" required>
+                <input class="input" type="email" id="username" name="email" placeholder="g.baker@students.uu.nl" required>
             </div>
 			<div class="mainSection__div">
                 <h4>Wachtwoord</h4>
-                <input title="Password must contain at least 6 characters, including UPPER/lowercase and numbers" type="password" id="password" name="password" placeholder="Wachtwoord" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : ''); if(this.checkValidity()) form.pwd2.pattern = RegExp.escape(this.value);">
+                <input class="input" title="Password must contain at least 6 characters, including UPPER/lowercase and numbers" type="password" id="password" name="password" placeholder="Wachtwoord" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : ''); if(this.checkValidity()) form.pwd2.pattern = RegExp.escape(this.value);">
             </div>
             <div class="mainSection__div">
                 <h4>Wachtwoord</h4>
-                <input title="Please enter the same Password as above" type="password" id="username" name="passwordCheck" placeholder="Bevestig wachtwoord" required required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');">
+                <input class="input" title="Please enter the same Password as above" type="password" id="username" name="passwordCheck" placeholder="Bevestig wachtwoord" required required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');">
             </div>
                 <div class="mainSection__div">
                 <h4>Niveau</h4>

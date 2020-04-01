@@ -1,7 +1,7 @@
-@import "register.css";
+@import "inputbox.css";
 
 .firstDiv{
-    margin: 30px 0;
+    margin: 20px 0;
 }
 
 .main__sectionInner{
@@ -60,7 +60,7 @@
     font-size: 20px;
 }
 
-input{
+.input{
 	padding: 8px;
 	border: 1px solid #ccc;
 	border-radius: 2px;
@@ -75,4 +75,28 @@ input{
 
 .deleteHidden{
     display: none;
+}
+
+.ingeschreven_title{
+    margin: 5px 0 0 5px;
+}
+
+.ingeschreven_title1{
+    margin-bottom: 10px;
+}
+
+.paragraph{
+    font-size: 15px;
+    margin: 5px;
+}
+
+.ingeschreven{
+    border: 2px black solid;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, .2);
+}
+
+.deregister{
+    text-align: center;
+    margin-top: 10px;
 }
