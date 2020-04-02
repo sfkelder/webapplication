@@ -1,16 +1,33 @@
 var express = require('express');
 var router = express.Router();
+var multer = require('multer');
+
+var storage = multer.diskStorage({
+    destination: function(req, file, cb){
+        cb(null, './uploads/');
+    },
+    limits: {fileSize: 1024 * 1024 * 10},
+    fileFilter: function(req, fie, cb){
+        if(file.mimetype === "image.jpeg" || file.mimetype === "image/jpg"){
+            cb(null, true);
+        }else{
+            cb(null, false);
+        }
+    }
+});
+
+var upload = multer({storage: storage});
 
 var fs = require("fs");
-var file = __dirname + "/../database/main.db";
-var exists = fs.existsSync(file);
+var filePath = __dirname + "/../database/main.db";
+var exists = fs.existsSync(filePath);
 
 /*Seeting up database*/
 if(!exists) {
-  fs.openSync(file, "w");
+  fs.openSync(filePath, "w");
 
    var sqlite3 = require("sqlite3").verbose();
-   var db = new sqlite3.Database(file);
+   var db = new sqlite3.Database(filePath);
 
     db.serialize(function() {
         db.run("CREATE TABLE Students (student_Number INTEGER PRIMARY KEY AUTOINCREMENT, first_Name TEXT, middle_Name TEXT, last_Name TEXT, student_Mail TEXT UNIQUE, program TEXT, academic_Level TEXT, password TEXT, link_Picture_Student TEXT)");
@@ -42,7 +59,7 @@ router.post('/login', function(req, res, next){
     res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
     var sqlite3 = require("sqlite3").verbose();
-    let db = new sqlite3.Database(file);
+    let db = new sqlite3.Database(filePath);
 
     db.serialize(function() {
         db.all("SELECT * FROM Students WHERE student_Mail = (?) OR student_Number = (?)", [req.body.username, req.body.username], (err, rows) => {
@@ -90,9 +107,9 @@ router.get('/register', function(req, res, next){
 });
 
 router.post('/register', function(req, res, next){
-
+ res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
     var sqlite3 = require("sqlite3").verbose();
-    var db = new sqlite3.Database(file);
+    var db = new sqlite3.Database(filePath);
 
     if(req.body.password === req.body.passwordCheck){
         db.serialize(function() {
@@ -107,6 +124,27 @@ router.post('/register', function(req, res, next){
                              showLogin: req.session.showLogin});
 });
 
+router.post('/deregister', function(req, res, next){
+     res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+
+    var sqlite3 = require("sqlite3").verbose();
+     var db = new sqlite3.Database(filePath);
+
+       db.serialize(function(){
+        db.run("DELETE FROM Registered WHERE student_Number = ? AND course_Number = ?", [req.session.student_Number, req.body.deregister], function(err) {
+        if (err) {
+        throw err;
+    }
+        console.log(`Row(s) deleted ${this.changes}`);
+        });
+    });
+    db.close();
+
+    res.redirect('/acount');
+
+});
+
+
 router.get('/acount', function(req, res, next){
    res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
@@ -114,20 +152,40 @@ router.get('/acount', function(req, res, next){
         res.redirect('/');
     }
 
-   res.render('acount', {username: req.session.username,
+     var sqlite3 = require("sqlite3").verbose();
+     var db = new sqlite3.Database(filePath);
+     var array = [];
+
+    db.serialize(function(){
+        db.all("SELECT * FROM Courses INNER JOIN Registered ON Courses.course_Number = Registered.course_Number WHERE student_Number = ?", [req.session.student_Number], (err, rows) => {
+            if (err) {
+            throw err;
+        }
+
+            rows.forEach((row) =>{
+                array.push(row);
+            });
+            console.log(array);
+              res.render('acount', {username: req.session.username,
                          showLogin: req.session.showLogin,
                          firstName: req.session.first_Name,
                         middleName: req.session.middle_Name,
                         lastName: req.session.last_Name,
                         email: req.session.student_Mail,
-                        academic: req.session.academic_Level});
+                        academic: req.session.academic_Level,
+                        array});
+
+
+        });
+        db.close();
+    });
 });
 
 router.post('/change', function(req, res, next){
     res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
      var sqlite3 = require("sqlite3").verbose();
-    let db = new sqlite3.Database(file);
+    let db = new sqlite3.Database(filePath);
 
     var pass = '';
 
@@ -156,7 +214,7 @@ router.post('/change', function(req, res, next){
                   pass = row.password;
                 }
 
-            let db1 = new sqlite3.Database(file);
+            let db1 = new sqlite3.Database(filePath);
            db1.serialize(function(){
                 db1.run("UPDATE Students SET first_Name = ?, middle_Name = ? , last_Name = ? , student_Mail = ?, program = ?, academic_Level = ?, password = ? WHERE student_Number = ?", [req.session.first_Name, req.session.middle_Name, req.session.last_Name, req.session.student_Mail, req.session.program, req.session.academic_Level, pass, req.session.student_Number], function(err) {
 
@@ -185,7 +243,7 @@ router.get('/delete', function(req, res, next){
      res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
      var sqlite3 = require("sqlite3").verbose();
-     var db = new sqlite3.Database(file);
+     var db = new sqlite3.Database(filePath);
 
     db.serialize(function(){
         db.run("DELETE FROM Students WHERE student_Number = ?", [req.session.student_Number], function(err) {
@@ -207,7 +265,7 @@ router.post('/zoeken', function(req, res, next){
     var array = [];
     var defaultValue;
     var sqlite3 = require("sqlite3").verbose();
-     var db = new sqlite3.Database(file);
+     var db = new sqlite3.Database(filePath);
 
     db.serialize(function(){
         if(!req.body.search && !req.body.semester && !req.body.academic_level && !req.body.program){
@@ -290,12 +348,83 @@ router.post('/zoeken', function(req, res, next){
 
 
 router.post('/goToCourse', function(req, res, next){
+     res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+    if(req.query.number){
+       req.body.courseButton = req.query.number;
+       }
 
-    console.log(req.body.courseButton);
+    var sqlite3 = require("sqlite3").verbose();
+     var db = new sqlite3.Database(filePath);
+    var array = [];
 
-    res.render('index',  {username: req.session.username,
-                         showLogin: req.session.showLogin});
+    db.serialize(function(){
+        db.get("SELECT * FROM Courses WHERE course_Number = ?", [req.body.courseButton], (err, row) => {
+            array.push(row);
+
+            res.render('coursepage',  {username: req.session.username,
+                                    showLogin: req.session.showLogin,
+                                     array});
+
+        });
+    });
+    db.close();
 });
+
+router.get('/goBackToCourse', function(req, res, next){
+     res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+    var sqlite3 = require("sqlite3").verbose();
+     var db = new sqlite3.Database(filePath);
+    var array = [];
+
+    db.serialize(function(){
+        db.get("SELECT * FROM Courses WHERE course_Number = ?", [req.query.number], (err, row) => {
+            array.push(row);
+
+            res.render('coursepage',  {username: req.session.username,
+                                    showLogin: req.session.showLogin,
+                                     array});
+
+        });
+    });
+    db.close();
+});
+
+
+router.post('/courseRegister', function(req, res, next){
+     res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+    var sqlite3 = require("sqlite3").verbose();
+     var db = new sqlite3.Database(filePath);
+    var db1 = new sqlite3.Database(filePath);
+    var array = [];
+
+    db.serialize(function(){
+        db.all("SELECT * FROM Registered WHERE student_Number = ? AND course_Number = ?", [req.session.student_Number, req.body.courseButton], (err, rows) => {
+            if((err) => {
+
+            });
+
+               rows.forEach((row) =>{
+                      array.push(row);
+               });
+
+            console.log(array.length);
+
+            if(array.length === 0){
+            db1.serialize(function(){
+                var stmt = db1.prepare("INSERT INTO Registered VALUES (?, ?)");
+                stmt.run(req.session.student_Number, req.body.courseButton);
+                stmt.finalize();
+                console.log('suc6');
+            });
+            db1.close();
+        }
+        });
+        db.close();
+    });
+
+    res.redirect('/goBackToCourse?number=' + req.body.courseButton);
+});
+
 
 //---------------
 
@@ -303,7 +432,7 @@ router.get('/test', function(req, res, next){
     var array = [];
 
     var sqlite3 = require("sqlite3").verbose();
-    let db = new sqlite3.Database(file);
+    let db = new sqlite3.Database(filePath);
 
     db.all('SELECT * FROM Students', (err, rows) => {
     if (err) {
@@ -327,14 +456,14 @@ router.get('/test', function(req, res, next){
 
 
 
-router.post('/voegtoe', function(req, res, next){
+router.post('/voegtoe', upload.single('uploadImage'), function(req, res, next){
     var sqlite3 = require("sqlite3").verbose();
-    let db = new sqlite3.Database(file);
+    let db = new sqlite3.Database(filePath);
 
     db.serialize(function(){
 
         var stmt = db.prepare("INSERT INTO Courses VALUES (NULL, ?, ?, ?, ?, ? ,? ,?, ?)");
-        stmt.run(req.body.titel, req.body.faculteit, req.body.program, req.body.academic_level, req.body.semester, req.body.beschrijving, req.body.naamDocent, req.body.link);
+        stmt.run(req.body.titel, req.body.faculteit, req.body.program, req.body.academic_level, req.body.semester, req.body.beschrijving, req.body.naamDocent, req.file.path);
         stmt.finalize();
 
         db.all('SELECT * FROM Courses', (err, rows) => {
@@ -351,6 +480,13 @@ router.post('/voegtoe', function(req, res, next){
     db.close();
     var array = [];
     res.render('test', {array});
+});
+
+router.post('/upload', upload.single('uploadImage') ,function(req, res, next){
+console.log(req.file);
+
+     res.render('index', {username: req.session.username,
+                         showLogin: req.session.showLogin});
 });
 //------------------
 

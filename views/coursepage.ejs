@@ -6,8 +6,7 @@
     <meta name="description" content="Website for the course Imperative programming">
     <title>Universiteit Utrecht</title>
     <link rel="stylesheet" type="text/css" href="../public/stylesheets/style.css">
-      <link rel="stylesheet" type="text/css" href="../public/stylesheets/acountpage.css">
-      <link rel="stylesheet" type="text/css" href="../public/stylesheets/registerAnimation.css">
+      <link rel="stylesheet" type="text/css" href="../public/stylesheets/coursepage.css">
     <link rel="icon" type="image/png" sizes="16x16" href="../public/images/favicon-16x16.png">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -75,97 +74,50 @@
         </li>
         <li class="menu__outerlist1">
             <ul class="menu__outerlist">
-                <li class="menu__innerlist" onclick=""><a class="menu__acount" href="/">Home</a></li>
+                <% if(showLogin) { %>
+                <li class="menu__innerlist" onclick="openLogin()"><a class="menu__login" href="#">Inloggen</a></li>
+                 <% }else{ %>
+                <li class="menu__innerlist" onclick=""><a class="menu__acount" href="/acount">Account</a></li>
                 <form class="menu__innerlist" action="/logout" method="get">
                     <button class="menu__logout" type="submit">Uitloggen</button>
                 </form>
+                <% } %>
             </ul>
         </li>
     </ul>
     </nav>
-      <section>
-          <section class="main main__sectionInner" >
-              <h4>Ingeschreven cursussen</h4>
-             <% for(var course of array)  { %>
-              <div class="ingeschreven">
-                  <div>
-                      <h5 class="naam__text ingeschreven_title"><%= course.title %></h5>
-                      <h6 class="naam__text ingeschreven_title1"><%= course.program %></h6>
-                      <p class="naam__text paragraph"><%= course.academic_Level %></p>
-                      <p class="naam__text paragraph"><%= course.semester %></p>
-                  </div>
-                  <form class="deregister" action="/deregister" method="post">
-                    <button type="submit" class="submit__changes delete" name="deregister" value="<%= course.course_Number %>">Uitschrijven</button>
-                  </form>
-              </div>
-              <% } %>
-          </section>
-          <section class="main main__sectionInner1">
-          <form action="/change" method="post">
-              <h4>Gegevens</h4>
-              <div class="firstDiv">
-                  <h5 class="title">Naam en Email</h5>
-                      <div class="mainSection__div">
-                        <h6 class="naam__text">Voornaam</h6>
-                          <input class="input" type="text" id="username" name="first_Name" value="<%= firstName%>">
-                      </div>
-                      <div class="mainSection__div">
-                          <h6 class="naam__text">Midden-naam</h6>
-                            <input class="input" type="text" id="username" name="middle_Name" value="<%= middleName%>">
-                      </div>
-                      <div class="mainSection__div">
-                          <h6 class="naam__text">Achternaam</h6>
-                            <input class="input" type="text" id="username" name="last_Name" value="<%= lastName%>">
-                      </div>
-                      <div class="mainSection__div">
-                          <h6 class="naam__text">Email</h6>
-                            <input class="input" type="email" id="username" name="email" value="<%= email%>">
-                      </div>
-              </div>
-              <div class="firstDiv">
-                  <h5 class="title">Opleiding</h5>
-                <div class="mainSection__div">
-                <h6 class="naam__text">Niveau</h6>
-                <div class="login-box__selsction" id="login-box__selsction">
-                <div class="select__arrow"></div>
-                </div>
-                </div>
-                <div class="mainSection__div">
-                <h6 class="naam__text">Studie programma</h6>
-                <div class="login-box__selsction" id="login-box__selsction1">
-                <div class="select__arrow"></div>
-                </div>
-		        </div>
-              </div>
-              <div class="firstDiv">
-                  <h5 class="title">Wachtwoord</h5>
-                  <div class="mainSection__div">
-                          <h6 class="naam__text">Oude wachtwoord</h6>
-                            <input  class="input" type="password" id="username" name="old_pasword" placeholder="Wachtwoord">
-                      </div>
-                  <div class="mainSection__div">
-                          <h6 class="naam__text">Nieuwe wachtwoord</h6>
-                            <input  class="input" type="password" id="username" name="new_pasword" placeholder="Wachtwoord">
-                      </div>
-                  <div class="mainSection__div">
-                          <h6 class="naam__text">Bevestig wachtwoord</h6>
-                            <input class="input" type="password" id="username" name="paswordCheck" placeholder="Wachtwoord">
-                      </div>
-              </div>
-              <div class="mainSection__div">
-                <button class="submit__changes" type="submit">Opslaan</button>
-              </div>
-          </form>
-          <form action="/delete" method="get">
-            <div class="deleteAcount firstDiv">
-                  <h5 class="title">Delete acount</h5>
-                    <p>If deleting your account, all information will be deleted. You will NOT be able to login anymore and lose all your current registrations</p>
-                <button type="button" class="submit__changes delete" id="deleteButton" onclick="deleteFunction();">Delete account</button>
-                <button class="submit__changes delete deleteHidden" type="submit" id="deleteButton1">Are you sure?</button>
-              </div>
-          </form>
-              </section>
+      <section class="login" id="login">
+	       <div class="login__text">Student Login</div>
+	       <form action="/login" method="post">
+    	       <input type="text" name="username" placeholder="Username" data-icon="U">
+               <input type="password" name="password" placeholder="Password" data-icon="x">
+            <div class="login__forgot">
+            <div class="login__forgottext"><a href="/register" title="Register">Register</a></div>
+            <div class="login__forgottext"><a href="/register" title="Forgot Password">Fotgot Password?</a></div>
+            </div>
+            <button class="login__button" type="submit">Submit</button>
+            </form>
       </section>
+      <section class="main home">
+          <% for(var course of array) { %>
+          <h1><%= course.title %></h1>
+          <h4><%= course.program %></h4>
+          <h5><%= course.academic_Level %></h5>
+          <h5><%= course.semester %></h5>
+          <p><%= course.description%></p>
+          <h5><%= course.teacher %></h5>
+          <img src="<%= course.link_Picture_Teacher %>" alt="Picture teacher">
+          <% if(!showLogin) {%>
+          <button class="registerButton register" onclick="deleteFunction()" type="button" id="deleteButton">Inschrijven</button>
+          <form action="/courseRegister" method="post">
+          <button class="registerButton1 register" type="submit" id="deleteButton1" name="courseButton" value="<%= course.course_Number %>">Weet je het zeker?</button>
+          </form>
+          <% } %>
+          <form action="/zoeken" method="post">
+          <button  type="submit" class="back">Back</button>
+          </form>
+          <% } %>
+    </section>
     <footer class="footer">
       Webtech Assigment 3
       <p>
@@ -174,3 +126,4 @@
     </footer>
   </body>
 </html>
+

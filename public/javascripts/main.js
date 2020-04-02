@@ -65,12 +65,31 @@ function semester(){
     }
 }
 
+//tijdelijke functie
+var faculteit = ['Aarde en Duurzaamheid', 'Bredere opleidingen', 'Beta', 'Gedrag en Maatschappij', 'Gezondheid van Mens en Dier', 'Media, kunt, Cultuur en Gescheidenis', 'Recht, Economie en Bestuur', 'Relgie en Filosofie', 'Talen en Communicatie', 'Economie, Bestuur en Organisatie', 'Filosofie en Religiewetenschappen', 'Natuurwetenschappen', 'Onderwijs', 'Rechten', 'Sociale en Gedragswetenschappen', 'Talen, Literatuur en Communicatie', 'Wiskunde en Informatiewetenschappen', 'Honours', 'Da Vince Project', 'Descartes College', 'Exchange'];
+window.addEventListener("load", faculteiten, true);
+function faculteiten(){
+    var b = document.createElement("SELECT");
+
+    b.setAttribute("id", "selectionBox3");
+    b.setAttribute("name", "faculteit");
+
+    document.getElementById('login-box__selsction3').appendChild(b);
+
+     for(let i =0; i<faculteit.length; i++){
+        var z = document.createElement("option");
+        var t = document.createTextNode(faculteit[i]);
+
+        z.appendChild(t);
+        document.getElementById("selectionBox3").appendChild(z);
+    }
+}
+
 
 function deleteFunction(){
     document.getElementById('deleteButton').style.display="none";
     document.getElementById('deleteButton1').style.display="inline-block";
 }
-
 
 //sets up the acount page
 function acountPage(){

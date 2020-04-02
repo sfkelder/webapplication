@@ -34,6 +34,7 @@ app.use('/users', usersRouter);
 
 //file structure
 app.use('/public', express.static('public'));
+app.use('/uploads', express.static('uploads'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

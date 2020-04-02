@@ -16,7 +16,7 @@
 
 
 
-<form action="/voegtoe" method="post">
+<form action="/voegtoe" method="post" enctype="multipart/form-data">
     <div class="firstDiv">
                   <h5 class="title">Opleiding</h5>
                 <div class="mainSection__div">
@@ -37,6 +37,12 @@
                 <div class="select__arrow"></div>
                 </div>
 		        </div>
+         <div class="mainSection__div">
+                <h6 class="naam__text">Faculteit</h6>
+                <div class="login-box__selsction" id="login-box__selsction3">
+                <div class="select__arrow"></div>
+                </div>
+		        </div>
               </div>
     <div class="mainSection__div">
                 <h4>Titel</h4>
@@ -51,16 +57,19 @@
                 <input class="input" type="text" id="username" name="naamDocent" placeholder="Gijs" required>
             </div>
     <div class="mainSection__div">
-                <h4>link naar foto</h4>
-                <input class="input" type="text" id="username" name="link" placeholder="Gijs" required>
-            </div>
-    <div class="mainSection__div">
-                <h4>faculteit</h4>
-                <input class="input" type="text" id="username" name="faculteit" placeholder="Gijs" required>
+                <h4>upload foto docent</h4>
+                <input type="file" name="uploadImage" required>
             </div>
 <button type="submit">submit</button>
     </form>
 
+
+    <!--
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="uploadImage">
+        <button type="submit"> upload</button>
+    </form>
+-->
 
 </body>
 </html>

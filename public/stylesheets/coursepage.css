@@ -1,0 +1,21 @@
+.registerButton{
+    display: block;
+}
+
+.registerButton1{
+    display: none;
+}
+
+.register{
+    background-color: green;
+    color: white;
+    font-family: Helvetica;
+    font-size: 20px;
+}
+
+.back{
+    background-color: gray;
+    color: white;
+    font-family: Helvetica;
+    font-size: 20px;
+}
