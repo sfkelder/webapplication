@@ -8,7 +8,6 @@ function openLogin(){
     var loginScreen = document.getElementById("login");
 
     loginScreen.style.display="block";
-
 }
 
 

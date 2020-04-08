@@ -4,14 +4,14 @@ body {
   color: dimgray;
   background-color:rgba(216, 205, 205, 0.41);
   margin:            0;
+  width: 100%;
 }
 
 .header {
-  display:     flex;
-  background: linear-gradient(to bottom, #1abc4c 21%, #1abc9c 100%);
+  background:  linear-gradient(to bottom, #1abc4c 21%, #1abc9c 100%);
   color:     white;
   text-align:  center;
-  height:      15vh;
+  height: 20vh;
 }
 
 .header__image {
@@ -22,6 +22,13 @@ body {
 
 .header__username{
     word-wrap: break-word;
+}
+
+.search {
+  display: flex;
+  background-color:#333;
+  color: white;
+  padding: 15px;
 }
 
 .menu__submenu{
@@ -95,7 +102,6 @@ body {
     background-color: #1abc9c;
     border-radius: 35px;
     text-decoration: none;
-    margin-left: 10px;
     font-family: inherit;
     font-size: 20px;
     cursor: pointer;
@@ -125,7 +131,6 @@ body {
     opacity: .9;
     transition-duration: .5s;
 }
-
 
 .menu__link {
   display:         inline-block;
@@ -279,21 +284,12 @@ body {
 
 .main__center { text-align: center; }
 
-.searching-tools{
-    position: absolute;
-    margin: 10px;
-    border-right: white 1px solid;
-    padding: 15px;
-    right: 275px;
-}
-
- .search-container {
+.search-container {
   padding: 11px;
   font-family: Helvetica;
   font-size: 17px;
   color:  dimgray;
   border: none;
-  width: 260px;
 }
 
  .search-button {
@@ -308,15 +304,12 @@ body {
 }
 
 .header__loginimage{
-    width: 70px;
-    float: right;
+  width: 60px;
+  padding: 15px;
 }
 
 .header__user{
-    position: absolute;
-    width: 250px;
-    margin: 15px;
-    right: 15px;
+    display: inline-flex;
 }
 
 .introductionVideo{
@@ -425,7 +418,20 @@ body {
 }
 
 @media only screen and (min-width: 768px) {
-  .header { height: auto; }
+  .header {
+    display: flex;
+    height: auto;
+  }
+
+  .header__user{
+    position: absolute;
+    right: 0;
+    max-width: 33%;
+  }
+
+  .header__buttons {
+    padding: 40px;
+  }
 
   .header__image {
     display: block;

@@ -16,18 +16,31 @@
   <body>
     <header class="header">
       <img class="header__image" src="../public/images/logo-nl.svg" alt="Universtity Utrcht logo">
-      <img class="header__image--mobile" src="../public/images/logo_compact.png" alt="Universtity Utrcht logo">
-    <form class="searching-tools" action="/zoeken" method="post">
-      <input class="search-container" type="text" placeholder="zoeken.." name="search">
-      <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
-    </form>
-    <section class="header__user">
-        <img class="header__loginimage" src="../public/images/unnamed.png">
+      <section class="header__user">
         <h4 class="header__username">
             <%= username %>
         </h4>
-    </section>
+        <img class="header__loginimage" src="../public/images/unnamed.png">
+      </section>
+      <section class="header__buttons">
+        <% if(showLogin) { %>
+        <a class="menu__logout" href="#" onclick="openLogin()">Inloggen</a>
+          <% }else{ %>
+        <a class="menu__logout" href="/acount">Account</a>
+        <form class="menu__innerlist" action="/logout" method="get">
+            <button class="menu__logout" type="submit">Uitloggen</button>
+        </form>
+        <% } %>
+     </section>
     </header>
+    <nav class="search">
+      <section class="search__section">
+        <form class="searching-tools" action="/zoeken" method="post">
+          <input class="search-container" type="text" placeholder="zoeken.." name="search">
+          <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+        </form>
+      </section>
+    </nav>
     <nav class="menu">
     <ul class="menu__outerunorderdlist">
         <li class="menu__outerlist">
@@ -70,18 +83,6 @@
                     </ul>
                 </li>
                 <li class="menu__innerlist"><a class="menu__link" href="/test">Contact</a></li>
-            </ul>
-        </li>
-        <li class="menu__outerlist1">
-            <ul class="menu__outerlist">
-                <% if(showLogin) { %>
-                <li class="menu__innerlist" onclick="openLogin()"><a class="menu__login" href="#">Inloggen</a></li>
-                 <% }else{ %>
-                <li class="menu__innerlist" onclick=""><a class="menu__acount" href="/acount">Account</a></li>
-                <form class="menu__innerlist" action="/logout" method="get">
-                    <button class="menu__logout" type="submit">Uitloggen</button>
-                </form>
-                <% } %>
             </ul>
         </li>
     </ul>
