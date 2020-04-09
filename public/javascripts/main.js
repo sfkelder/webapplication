@@ -11,8 +11,8 @@ function openLogin(){
 }
 
 
-var niveaus = ['Bachelor 1','Bachelor 2','Bachelor 3','Master 1','Master 2'];
-var programs = ['Informatica','Game technologie','bestuur en organisatiewetenschappen','Rechten','Wiskunde'];
+var niveaus = ['Bachelor 1','Bachelor 2 + 3'];
+var programs = ['Informatica','Game technologie','Informatiekunde'];
 var semesters = ['Semester 1', 'Semester 2', 'Semester 3','Semester 4',];
 
 
@@ -65,7 +65,7 @@ function semester(){
 }
 
 //tijdelijke functie
-var faculteit = ['Aarde en Duurzaamheid', 'Bredere opleidingen', 'Beta', 'Gedrag en Maatschappij', 'Gezondheid van Mens en Dier', 'Media, kunt, Cultuur en Gescheidenis', 'Recht, Economie en Bestuur', 'Relgie en Filosofie', 'Talen en Communicatie', 'Economie, Bestuur en Organisatie', 'Filosofie en Religiewetenschappen', 'Natuurwetenschappen', 'Onderwijs', 'Rechten', 'Sociale en Gedragswetenschappen', 'Talen, Literatuur en Communicatie', 'Wiskunde en Informatiewetenschappen', 'Honours', 'Da Vince Project', 'Descartes College', 'Exchange'];
+var faculteit = ['Beta']; //['Aarde en Duurzaamheid', 'Bredere opleidingen', 'Beta', 'Gedrag en Maatschappij', 'Gezondheid van Mens en Dier', 'Media, kunt, Cultuur en Gescheidenis', 'Recht, Economie en Bestuur', 'Relgie en Filosofie', 'Talen en Communicatie', 'Economie, Bestuur en Organisatie', 'Filosofie en Religiewetenschappen', 'Natuurwetenschappen', 'Onderwijs', 'Rechten', 'Sociale en Gedragswetenschappen', 'Talen, Literatuur en Communicatie', 'Wiskunde en Informatiewetenschappen', 'Honours', 'Da Vince Project', 'Descartes College', 'Exchange'];
 window.addEventListener("load", faculteiten, true);
 function faculteiten(){
     var b = document.createElement("SELECT");
