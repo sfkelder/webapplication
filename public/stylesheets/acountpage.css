@@ -1,41 +1,22 @@
 @import "inputbox.css";
 
-.firstDiv{
-    margin: 20px 0;
+.account__courses {
+    background-color: white;
+    margin:           15px 15px;
+    padding:          10px;
+    overflow-y:       scroll;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
+                0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+                0px 2px 1px -1px rgba(0, 0, 0, 0.12);
 }
 
-.main__sectionInner{
-    height: 705px;
-    position: relative;
-    display: inline-block;
-    width: 20%;
-    margin-right: 0;
-    overflow-y: scroll;
-    padding: 20px 30px;
-}
-
-.main__sectionInner1{
-    margin-left: 5px;
-    width: 55%;
-    margin-right: 100px;
-    display: inline-block;
-    position: relative;
-    height: 705px;
-    padding: 20px 30px;
-    overflow: auto;
-}
-
-.main__sectionInner::-webkit-scrollbar {
-    width: 10px;
-}
-
-.main__sectionInner::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-}
-
-.main__sectionInner::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
+.account__info {
+    background-color: white;
+    margin:           15px 15px;
+    padding:          10px;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
+                0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+                0px 2px 1px -1px rgba(0, 0, 0, 0.12);
 }
 
 .deleteAcount{
@@ -100,4 +81,18 @@
 .deregister{
     text-align: center;
     margin-top: 10px;
+}
+
+@media only screen and (min-width: 768px) {
+  .account {
+    display: flex;
+  }
+
+  .account__courses {
+    width: 40%
+  }
+
+  .account__info {
+    width: 60%
+  }
 }

@@ -18,20 +18,21 @@
       <img class="header__image" src="../public/images/logo-nl.svg" alt="Universtity Utrcht logo">
       <section class="header__user">
         <h4 class="header__username">
-            <%= username %>
+          <%= username %>
         </h4>
         <img class="header__loginimage" src="../public/images/unnamed.png">
       </section>
       <section class="header__buttons">
         <% if(showLogin) { %>
-        <a class="menu__logout" href="#" onclick="openLogin()">Inloggen</a>
-          <% }else{ %>
-        <a class="menu__logout" href="/acount">Account</a>
-        <form class="menu__innerlist" action="/logout" method="get">
-            <button class="menu__logout" type="submit">Uitloggen</button>
-        </form>
+          <a class="menu__logout" href="#" onclick="openLogin()">Inloggen</a>
+          <a class="menu__logout" href="/register" title="Register">Register</a>
+        <% }else{ %>
+          <a class="menu__logout" href="/acount">Account</a>
+          <form class="menu__innerlist" action="/logout" method="get">
+              <button class="menu__logout" type="submit">Uitloggen</button>
+          </form>
         <% } %>
-     </section>
+      </section>
     </header>
     <nav class="search">
       <section class="search__section">
@@ -42,65 +43,51 @@
       </section>
     </nav>
     <nav class="menu">
-    <ul class="menu__outerunorderdlist">
+      <ul class="menu__outerunorderdlist">
         <li class="menu__outerlist">
-            <ul class="menu__outerunorderdlist">
-                <li class="menu__innerlist"><a class="menu__link" href="/">Home</a></li>
-                <li class="menu__innerlist"><a class="menu__link" href="">Beacholor</a>
-                    <ul class="menu__submenu">
-                        <li class="menu__innerlist1"><a class="menu__innerlink" href="">Aarde en Duurzaamheid</a></li>
-                        <li class="menu__innerlist1"><a class="menu__innerlink" href="">Bredere opleidingen</a></li>
-                        <li class="menu__innerlist1"><a class="menu__innerlink" href="">Beta</a></li>
-                        <li class="menu__innerlist1"><a class="menu__innerlink" href="">Gedrag en Maatschappij</a></li>
-                        <li class="menu__innerlist1"><a class="menu__innerlink" href="">Gezondheid van Mens en Dier</a></li>
-                        <li class="menu__innerlist1"><a class="menu__innerlink" href="">Media, kunt, Cultuur en Gescheidenis</a></li>
-                        <li class="menu__innerlist1"><a class="menu__innerlink" href="">Recht, Economie en Bestuur</a></li>
-                        <li class="menu__innerlist1"><a class="menu__innerlink" href="">Relgie en Filosofie</a></li>
-                        <li class="menu__innerlist1"><a class="menu__innerlink" href="">Talen en Communicatie</a></li>
-                    </ul>
-                </li>
-                <li class="menu__innerlist"><a class="menu__link" href="">Master</a>
-                    <ul class="menu__submenu">
-                        <li class="menu__innerlist1"><a class="menu__innerlink" href="">Aarde en Duurzaamheid</a></li>
-                        <li class="menu__innerlist1"><a class="menu__innerlink" href="">Economie, Bestuur en Organisatie</a></li>
-                        <li class="menu__innerlist1"><a class="menu__innerlink" href="">Filosofie en Religiewetenschappen</a></li>
-                        <li class="menu__innerlist1"><a class="menu__innerlink" href="">Gezondheid van Mens en Dier</a></li>
-                        <li class="menu__innerlist1"><a class="menu__innerlink" href="">Media, kunt, Cultuur en Gescheidenis</a></li>
-                        <li class="menu__innerlist1"><a class="menu__innerlink" href="">Natuurwetenschappen</a></li>
-                        <li class="menu__innerlist1"><a class="menu__innerlink" href="">Onderwijs</a></li>
-                        <li class="menu__innerlist1"><a class="menu__innerlink" href="">Rechten</a></li>
-                        <li class="menu__innerlist1"><a class="menu__innerlink" href="">Sociale en Gedragswetenschappen</a></li>
-                        <li class="menu__innerlist1"><a class="menu__innerlink" href="">Talen, Literatuur en Communicatie</a></li>
-                        <li class="menu__innerlist1"><a class="menu__innerlink" href="">Wiskunde en Informatiewetenschappen</a></li>
-                    </ul>
-                </li>
-                <li class="menu__innerlist"><a class="menu__link" href="">Extra mogelijkheden</a>
-                    <ul class="menu__submenu">
-                        <li class="menu__innerlist1"><a class="menu__innerlink" href="">Honours</a></li>
-                        <li class="menu__innerlist1"><a class="menu__innerlink" href="">Da Vince Project</a></li>
-                        <li class="menu__innerlist1"><a class="menu__innerlink" href="">Descartes College</a></li>
-                        <li class="menu__innerlist1"><a class="menu__innerlink" href="">Exchange</a></li>
-                    </ul>
-                </li>
-                <li class="menu__innerlist"><a class="menu__link" href="/test">Contact</a></li>
-            </ul>
+          <ul class="menu__outerunorderdlist">
+            <li class="menu__innerlist"><a class="menu__link" href="/">Home</a></li>
+            <li class="menu__innerlist">
+              <form class="searching-tools" action="/zoeken" method="post">
+                <button class="menu__innerlink menu__courses" type="submit">Beta Faculteit</button>
+              </form>
+              <ul class="menu__submenu">
+                <li class="menu__innerlist1"><a class="menu__innerlink" href="">
+                  <form class="searching-tools" action="/zoeken" method="post">
+                    <input class="menu__search" type="text" name="program" value="Informatica">
+                    <button class="menu__innerlink menu__courses" type="submit">Informatica</button>
+                  </form>
+                </a></li>
+                <li class="menu__innerlist1"><a class="menu__innerlink" href="">
+                  <form class="searching-tools" action="/zoeken" method="post">
+                    <input class="menu__search" type="text" name="program" value="Game Technologie">
+                    <button class="menu__innerlink menu__courses" type="submit">Game Technologie</button>
+                  </form>
+                </a></li>
+                <li class="menu__innerlist1"><a class="menu__innerlink" href="">
+                  <form class="searching-tools" action="/zoeken" method="post">
+                    <input class="menu__search" type="text" name="program" value="Informatiekunde">
+                    <button class="menu__innerlink menu__courses" type="submit">Informatiekunde</button>
+                  </form>
+                </a></li>
+              </ul>
+            </li>
+          </ul>
         </li>
-    </ul>
+      </ul>
     </nav>
-      <section class="login" id="login">
-	       <div class="login__text">Student Login</div>
-	       <form action="/login" method="post">
-    	       <input type="text" name="username" placeholder="Username" data-icon="U">
-               <input type="password" name="password" placeholder="Password" data-icon="x">
-            <div class="login__forgot">
-            <div class="login__forgottext"><a href="/register" title="Register">Register</a></div>
-            <div class="login__forgottext"><a href="/register" title="Forgot Password">Fotgot Password?</a></div>
-            </div>
-            <button class="login__button" type="submit">Submit</button>
-            </form>
-      </section>
-      <section class="main home">
-          <% for(var course of array) { %>
+    <section class="login" id="login">
+      <div class="login__text">
+        Student Login
+      </div>
+      <form action="/login" method="post">
+        <input type="text" name="username" placeholder="Username" data-icon="U">
+        <input type="password" name="password" placeholder="Password" data-icon="x">
+        <button class="login__button" type="submit">Submit</button>
+      </form>
+    </section>
+    <section class="main home">
+        <% for(var course of array) { %>
           <h1><%= course.title %></h1>
           <h4><%= course.program %></h4>
           <h5><%= course.academic_Level %></h5>
@@ -109,15 +96,21 @@
           <h5><%= course.teacher %></h5>
           <img src="<%= course.link_Picture_Teacher %>" alt="Picture teacher">
           <% if(!showLogin) {%>
-          <button class="registerButton register" onclick="deleteFunction()" type="button" id="deleteButton">Inschrijven</button>
-          <form action="/courseRegister" method="post">
-          <button class="registerButton1 register" type="submit" id="deleteButton1" name="courseButton" value="<%= course.course_Number %>">Weet je het zeker?</button>
-          </form>
+            <% if (program == course.program && academic == course.academic_Level) {%>
+            <button class="registerButton register" onclick="deleteFunction()" type="button" id="deleteButton">Inschrijven</button>
+            <form action="/courseRegister" method="post">
+              <button class="registerButton1 register" type="submit" id="deleteButton1" name="courseButton" value="<%= course.course_Number %>">Weet je het zeker?</button>
+            </form>
+            <% } else { %>
+              <p>
+                Inschrijven onmogelijk: Dit vak hoort <strong>NIET</strong> bij jouw studie en/of studiejaar.
+              </p>
+            <% } %>
           <% } %>
           <form action="/zoeken" method="post">
-          <button  type="submit" class="back">Back</button>
+            <button type="submit" class="back">Back</button>
           </form>
-          <% } %>
+        <% } %>
     </section>
     <footer class="footer">
       Webtech Assigment 3
