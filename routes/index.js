@@ -51,7 +51,7 @@ router.get('/', function(req, res, next) {
                         showLogin: req.session.showLogin });
 });
 
-router.post('/login', function(req, res, next) {
+router.post('/group39/login', function(req, res, next) {
   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
   var sqlite3 = require("sqlite3").verbose();
@@ -84,14 +84,14 @@ router.post('/login', function(req, res, next) {
   });
 });
 
-router.get('/logout', function(req, res, next) {
+router.get('/group39/logout', function(req, res, next) {
   req.session.destroy((err)=>{
       res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
       res.redirect('/');
   });
 });
 
-router.get('/register', function(req, res, next) {
+router.get('/group39/register', function(req, res, next) {
   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
   if (!req.session.showLogin) {
@@ -102,7 +102,7 @@ router.get('/register', function(req, res, next) {
                             showLogin: req.session.showLogin });
 });
 
-router.post('/register', function(req, res, next) {
+router.post('/group39/register', function(req, res, next) {
   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   var sqlite3 = require("sqlite3").verbose();
   var db      = new sqlite3.Database(filePath);
@@ -120,7 +120,7 @@ router.post('/register', function(req, res, next) {
                         showLogin: req.session.showLogin });
 });
 
-router.post('/deregister', function(req, res, next) {
+router.post('/group39/deregister', function(req, res, next) {
   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   var sqlite3 = require("sqlite3").verbose();
   var db      = new sqlite3.Database(filePath);
@@ -135,10 +135,10 @@ router.post('/deregister', function(req, res, next) {
   });
   db.close();
 
-  res.redirect('/acount');
+  res.redirect('/group39/acount');
 });
 
-router.get('/acount', function(req, res, next) {
+router.get('/group39/acount', function(req, res, next) {
   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
   if (req.session.showLogin) {
@@ -173,7 +173,7 @@ router.get('/acount', function(req, res, next) {
   });
 });
 
-router.post('/change', function(req, res, next) {
+router.post('/group39/change', function(req, res, next) {
   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
   var sqlite3 = require("sqlite3").verbose();
@@ -217,12 +217,12 @@ router.post('/change', function(req, res, next) {
   });
 
   req.session.username = req.session.first_Name + " " + req.session.middle_Name + " " + req.session.last_Name;
-  res.redirect('/acount');
+  res.redirect('/group39/acount');
 
 });
 
 
-router.get('/delete', function(req, res, next) {
+router.get('/group39/delete', function(req, res, next) {
   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
   var sqlite3 = require("sqlite3").verbose();
@@ -238,10 +238,10 @@ router.get('/delete', function(req, res, next) {
   });
   db.close();
 
-  res.redirect('/logout');
+  res.redirect('/group39/logout');
 });
 
-router.post('/zoeken', function(req, res, next) {
+router.post('/group39/zoeken', function(req, res, next) {
   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
   var defaultValue;
@@ -341,7 +341,7 @@ router.post('/zoeken', function(req, res, next) {
 });
 
 
-router.post('/goToCourse', function(req, res, next) {
+router.post('/group39/goToCourse', function(req, res, next) {
   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   if (req.query.number) {
     req.body.courseButton = req.query.number;
@@ -365,7 +365,7 @@ router.post('/goToCourse', function(req, res, next) {
   db.close();
 });
 
-router.get('/goBackToCourse', function(req, res, next) {
+router.get('/group39/goBackToCourse', function(req, res, next) {
   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
   var sqlite3 = require("sqlite3").verbose();
@@ -387,7 +387,7 @@ router.get('/goBackToCourse', function(req, res, next) {
 });
 
 
-router.post('/courseRegister', function(req, res, next) {
+router.post('/group39/courseRegister', function(req, res, next) {
   res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 
   var sqlite3 = require("sqlite3").verbose();
@@ -418,7 +418,7 @@ router.post('/courseRegister', function(req, res, next) {
     db.close();
   });
 
-  res.redirect('/goBackToCourse?number=' + req.body.courseButton);
+  res.redirect('/group39/goBackToCourse?number=' + req.body.courseButton);
 });
 
 
